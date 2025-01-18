@@ -113,6 +113,6 @@ class Sudoku:
             for j in range(9):
                 if j % 3 == 0 and j != 0:
                     result += "| "
-                result += str(self.board[i, j]) + " "
+                result += "- " if self.board[i, j] == 0 else str(self.board[i, j]) + " "
             result += "\n"
         return result
