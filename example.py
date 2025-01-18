@@ -33,15 +33,9 @@ invalid_board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
-invalid_game = Sudoku(invalid_board)  # This will raise ValueError
-
-
-generator = SudokuGenerator()
-puzzle, solution = generator.generate(num_clues=25)  # Genera un puzzle con 25 pistas
-
-print("Puzzle generado:")
-print(puzzle)
-print("\nSolución:")
-print(Sudoku(solution))
+try:
+    invalid_game = Sudoku(invalid_board)
+except ValueError:
+    print("Error: Could not create Sudoku with the given board, it is invalid.")
