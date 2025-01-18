@@ -1,5 +1,8 @@
 from sudoku import Sudoku
+from sudoku_generator import SudokuGenerator
 
+
+print("\n\nTest the Sudoku class...\n")
 # Create an empty board
 game = Sudoku()
 
@@ -23,6 +26,7 @@ print("\nAfter clearing (0,0):")
 print(game)
 
 
+print("\n\nTest the Sudoku validator...\n")
 # This will raise ValueError because the 5 is repeated in the first row
 invalid_board = [
     [5, 5, 0, 0, 0, 0, 0, 0, 0],
@@ -37,5 +41,17 @@ invalid_board = [
 ]
 try:
     invalid_game = Sudoku(invalid_board)
-except ValueError:
-    print("Error: Could not create Sudoku with the given board, it is invalid.")
+except ValueError as e:
+    print("Error: Could not create Sudoku with the given board:", e)
+
+
+print("\n\nTest the Sudoku generator...\n")
+# Example usage
+generator = SudokuGenerator()
+puzzle, solution = generator.generate(num_clues=17)
+
+print("Generated Sudoku puzzle (17 clues):")
+print(puzzle)
+print("\nSolution:")
+solved = Sudoku(solution)
+print(solved)
