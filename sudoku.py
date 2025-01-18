@@ -9,6 +9,10 @@ class Sudoku:
         Args:
             board: Optional list of lists or numpy array representing the initial board
                   Use 0 for empty cells
+                  
+        Raises:
+            ValueError: If the board is not 9x9 or contains invalid numbers
+                      or has repeated numbers in rows, columns or blocks
         """
         if board is None:
             self.board = np.zeros((9, 9), dtype=int)
@@ -16,20 +20,22 @@ class Sudoku:
             self.board = np.array(board, dtype=int)
             if self.board.shape != (9, 9):
                 raise ValueError("Sudoku board must be 9x9")
+            if not self._is_valid_board():
+                raise ValueError("Invalid initial board: contains invalid numbers or repeated numbers in rows, columns or blocks")
     
     def get_row(self, row):
         """Get a specific row from the board."""
-        return self.board[row].copy()
+        return self.board[row]
     
     def get_column(self, col):
         """Get a specific column from the board."""
-        return self.board[:, col].copy()
+        return self.board[:, col]
     
     def get_block(self, row, col):
         """Get the 3x3 block that contains the cell at (row, col)."""
         block_row = (row // 3) * 3
         block_col = (col // 3) * 3
-        return self.board[block_row:block_row + 3, block_col:block_col + 3].copy()
+        return self.board[block_row:block_row + 3, block_col:block_col + 3]
     
     def is_valid_move(self, row, col, num):
         """
@@ -56,7 +62,7 @@ class Sudoku:
             return False
             
         # Check 3x3 block
-        if num in self.get_block(row, col):
+        if num in self.get_block(row, col).flatten():
             return False
             
         return True
@@ -102,6 +108,40 @@ class Sudoku:
                 if set(self.get_block(i, j).flatten()) != set(range(1, 10)):
                     return False
                     
+        return True
+    
+    def _is_valid_board(self):
+        """
+        Check if the initial board is valid.
+        A valid board must:
+        1. Contain only numbers from 0-9 (0 represents empty cells)
+        2. Not have repeated numbers (1-9) in any row, column or 3x3 block
+        
+        Returns:
+            bool: True if the board is valid, False otherwise
+        """
+        # Check if all numbers are in valid range (0-9)
+        if not np.all((self.board >= 0) & (self.board <= 9)):
+            return False
+            
+        # Check rows and columns
+        for i in range(9):
+            # Get non-zero numbers in row and column
+            row_nums = self.get_row(i)[self.get_row(i) != 0]
+            col_nums = self.get_column(i)[self.get_column(i) != 0]
+            
+            # Check for duplicates (if length of unique numbers is less than total numbers)
+            if len(np.unique(row_nums)) < len(row_nums) or len(np.unique(col_nums)) < len(col_nums):
+                return False
+        
+        # Check 3x3 blocks
+        for i in range(0, 9, 3):
+            for j in range(0, 9, 3):
+                block = self.get_block(i, j)
+                block_nums = block[block != 0]
+                if len(np.unique(block_nums)) < len(block_nums):
+                    return False
+        
         return True
     
     def __str__(self):
