@@ -10,14 +10,29 @@ class SudokuVisualSolver(Sudoku):
         self.delay = 0.0001  # Delay between steps in seconds
         self.steps = 0  # Initialize step counter
 
-    def _draw_grid(self):
+    def _draw_grid(self, algorithm_name=None):
         """Draw the Sudoku grid with current numbers."""
         self.ax.clear()
+
+        # Add algorithm name if provided
+        if algorithm_name:
+            self.ax.text(
+                4.5,
+                9.7,
+                algorithm_name,
+                ha="center",
+                va="center",
+                fontsize=12,
+                fontweight="bold",
+            )
+
         # Draw the main grid
         for i in range(10):
             lw = 2 if i % 3 == 0 else 0.5
-            self.ax.axhline(y=i, color="black", linewidth=lw)
-            self.ax.axvline(x=i, color="black", linewidth=lw)
+            # Limitar las líneas horizontales al área del Sudoku (0-9)
+            self.ax.plot([0, 9], [i, i], color="black", linewidth=lw)
+            # Limitar las líneas verticales al área del Sudoku (0-9)
+            self.ax.plot([i, i], [0, 9], color="black", linewidth=lw)
 
         # Fill in the numbers
         for i in range(9):
@@ -35,7 +50,9 @@ class SudokuVisualSolver(Sudoku):
         self.ax.text(4.5, -0.5, f"Steps: {self.steps}", ha="center", va="center")
 
         self.ax.set_xlim(0, 9)
-        self.ax.set_ylim(0, 9)
+        self.ax.set_ylim(
+            -1, 10.5
+        )  # Adjusted to give more space to the title and counter
         self.ax.set_xticks([])
         self.ax.set_yticks([])
         plt.pause(0.001)
