@@ -10,7 +10,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
 
     def solve_stochastic(self):
         """Solve Sudoku using a stochastic approach (random sampling with backtracking)"""
-        self._draw_grid()
+        self._draw_grid("Stochastic Algorithm")
         plt.pause(self.delay)
 
         def solve_recursive(row=0, col=0):
@@ -34,7 +34,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
                 if self.is_valid_move(row, col, num):
                     self.board[row, col] = num
                     self.steps += 1
-                    self._draw_grid()
+                    self._draw_grid("Stochastic Algorithm")
                     self.highlight_cell(row, col, color="green", alpha=0.2)
                     plt.pause(self.delay)
 
@@ -42,7 +42,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
                         return True
 
                     self.board[row, col] = 0
-                    self._draw_grid()
+                    self._draw_grid("Stochastic Algorithm")
                     self.highlight_cell(row, col, color="red", alpha=0.2)
                     plt.pause(self.delay)
 
@@ -56,7 +56,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
 
     def solve_constraint_propagation(self):
         """Solve Sudoku using constraint propagation (looking ahead)"""
-        self._draw_grid()
+        self._draw_grid("Constraint Propagation")
         plt.pause(self.delay)
 
         def get_possible_values(row, col):
@@ -101,7 +101,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
                 if self.is_valid_move(row, col, num):
                     self.board[row, col] = num
                     self.steps += 1
-                    self._draw_grid()
+                    self._draw_grid("Constraint Propagation")
                     self.highlight_cell(row, col, color="green", alpha=0.2)
                     plt.pause(self.delay)
 
@@ -109,7 +109,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
                         return True
 
                     self.board[row, col] = 0
-                    self._draw_grid()
+                    self._draw_grid("Constraint Propagation")
                     self.highlight_cell(row, col, color="red", alpha=0.2)
                     plt.pause(self.delay)
 
@@ -122,8 +122,8 @@ class SudokuAlgorithms(SudokuVisualSolver):
         plt.show()
 
     def solve_backtracking(self):
-        """Solve Sudoku using classic backtracking algorithm"""
-        self._draw_grid()
+        """Solve Sudoku using simple backtracking"""
+        self._draw_grid("Backtracking")
         plt.pause(self.delay)
 
         def solve_recursive(row=0, col=0):
@@ -143,7 +143,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
                 if self.is_valid_move(row, col, num):
                     self.board[row, col] = num
                     self.steps += 1
-                    self._draw_grid()
+                    self._draw_grid("Backtracking")
                     self.highlight_cell(row, col, color="green", alpha=0.2)
                     plt.pause(self.delay)
 
@@ -151,7 +151,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
                         return True
 
                     self.board[row, col] = 0
-                    self._draw_grid()
+                    self._draw_grid("Backtracking")
                     self.highlight_cell(row, col, color="red", alpha=0.2)
                     plt.pause(self.delay)
 
@@ -165,7 +165,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
 
     def solve_dlx(self):
         """Solve Sudoku using Dancing Links (Algorithm X)"""
-        self._draw_grid()
+        self._draw_grid("Dancing Links (Algorithm X)")
         plt.pause(self.delay)
 
         def create_cover_matrix():
@@ -214,7 +214,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
                     r, c, num = solution[i]
                     self.board[r, c] = num
                     self.steps += 1
-                    self._draw_grid()
+                    self._draw_grid("Dancing Links (Algorithm X)")
                     self.highlight_cell(r, c, color="green", alpha=0.2)
                     plt.pause(self.delay)
 
@@ -240,7 +240,7 @@ class SudokuAlgorithms(SudokuVisualSolver):
                         return True
 
                     self.board[r, c] = 0
-                    self._draw_grid()
+                    self._draw_grid("Dancing Links (Algorithm X)")
                     self.highlight_cell(r, c, color="red", alpha=0.2)
                     plt.pause(self.delay)
 

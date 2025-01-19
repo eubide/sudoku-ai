@@ -18,17 +18,17 @@ board = np.array(
 )
 
 solver = SudokuAlgorithms(board.copy())
-print("Resolviendo con backtracking...")
+print("Solving with backtracking...")
 solver.solve_backtracking()
 
 solver = SudokuAlgorithms(board.copy())
-print("Resolviendo con algoritmo estocástico...")
+print("Solving with stochastic algorithm...")
 solver.solve_stochastic()
 
 solver = SudokuAlgorithms(board.copy())
-print("Resolviendo con propagación de restricciones...")
+print("Solving with constraint propagation...")
 solver.solve_constraint_propagation()
 
 solver = SudokuAlgorithms(board.copy())
-print("Resolviendo con propagación de restricciones...")
+print("Solving with Dancing Links (Algorithm X)...")
 solver.solve_dlx()
